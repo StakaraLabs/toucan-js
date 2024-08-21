@@ -1,3 +1,4 @@
+/// <reference types="@cloudflare/workers-types" />
 import type { ClientOptions, Options as CoreOptions } from '@sentry/types';
 import type { RequestDataOptions } from './integrations';
 import type { FetchTransportOptions } from './transports';

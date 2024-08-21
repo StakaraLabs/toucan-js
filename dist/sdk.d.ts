@@ -5,7 +5,7 @@ import type { Breadcrumb, CheckIn, MonitorConfig } from '@sentry/types';
  * The Cloudflare Workers SDK.
  */
 export declare class Toucan extends Scope {
-    hashoptions: Options;
+    #private;
     constructor(options: Options);
     /**
      * Creates new ToucanClient and links it to this instance.

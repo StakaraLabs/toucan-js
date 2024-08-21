@@ -7,13 +7,7 @@ import type { ToucanClientOptions } from './types';
  * The Cloudflare Workers SDK Client.
  */
 export declare class ToucanClient extends ServerRuntimeClient<ToucanClientOptions> {
-    /**
-     * Some functions need to access the scope (Toucan instance) this client is bound to,
-     * but calling 'getCurrentHub()' is unsafe because it uses globals.
-     * So we store a reference to the Hub after binding to it and provide it to methods that need it.
-     */
-    hashsdk: Toucan | null;
-    hashintegrationsInitialized: boolean;
+    #private;
     /**
      * Creates a new Toucan SDK instance.
      * @param options Configuration options for this SDK.
