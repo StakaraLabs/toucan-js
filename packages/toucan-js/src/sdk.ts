@@ -15,7 +15,7 @@ import type { Breadcrumb, CheckIn, MonitorConfig } from '@sentry/types';
  * The Cloudflare Workers SDK.
  */
 export class Toucan extends Scope {
-  #options: Options;
+  hashoptions: Options;
 
   constructor(options: Options) {
     super();
@@ -39,7 +39,7 @@ export class Toucan extends Scope {
       }
     }
 
-    this.#options = options;
+    this.hashoptions = options;
 
     this.attachNewClient();
   }
@@ -49,15 +49,15 @@ export class Toucan extends Scope {
    */
   protected attachNewClient() {
     const client = new ToucanClient({
-      ...this.#options,
+      ...this.hashoptions,
       transport: makeFetchTransport,
-      integrations: getIntegrationsToSetup(this.#options),
+      integrations: getIntegrationsToSetup(this.hashoptions),
       stackParser: stackParserFromStackParserOptions(
-        this.#options.stackParser || defaultStackParser,
+        this.hashoptions.stackParser || defaultStackParser,
       ),
       transportOptions: {
-        ...this.#options.transportOptions,
-        context: this.#options.context,
+        ...this.hashoptions.transportOptions,
+        context: this.hashoptions.context,
       },
     });
 
@@ -125,7 +125,7 @@ export class Toucan extends Scope {
    */
   clone(): Toucan {
     // Create new scope using the same options
-    const toucan = new Toucan({ ...this.#options });
+    const toucan = new Toucan({ ...this.hashoptions });
 
     // And copy all the scope data
     toucan._breadcrumbs = [...this._breadcrumbs];

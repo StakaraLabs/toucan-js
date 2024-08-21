@@ -17,9 +17,9 @@ export class ToucanClient extends ServerRuntimeClient<ToucanClientOptions> {
    * but calling 'getCurrentHub()' is unsafe because it uses globals.
    * So we store a reference to the Hub after binding to it and provide it to methods that need it.
    */
-  #sdk: Toucan | null = null;
+  hashsdk: Toucan | null = null;
 
-  #integrationsInitialized: boolean = false;
+  hashintegrationsInitialized: boolean = false;
 
   /**
    * Creates a new Toucan SDK instance.
@@ -45,12 +45,12 @@ export class ToucanClient extends ServerRuntimeClient<ToucanClientOptions> {
    * By default, integrations are stored in a global. We want to store them in a local instance because they may have contextual data, such as event request.
    */
   public setupIntegrations(): void {
-    if (this._isEnabled() && !this.#integrationsInitialized && this.#sdk) {
+    if (this._isEnabled() && !this.hashintegrationsInitialized && this.hashsdk) {
       this._integrations = setupIntegrations(
         this._options.integrations,
-        this.#sdk,
+        this.hashsdk,
       );
-      this.#integrationsInitialized = true;
+      this.hashintegrationsInitialized = true;
     }
   }
 
@@ -60,7 +60,7 @@ export class ToucanClient extends ServerRuntimeClient<ToucanClientOptions> {
   ): PromiseLike<Event> {
     return resolvedSyncPromise(
       eventFromUnknownInput(
-        this.#sdk,
+        this.hashsdk,
         this._options.stackParser,
         exception,
         hint,
@@ -111,11 +111,11 @@ export class ToucanClient extends ServerRuntimeClient<ToucanClientOptions> {
   }
 
   public getSdk() {
-    return this.#sdk;
+    return this.hashsdk;
   }
 
   public setSdk(sdk: Toucan) {
-    this.#sdk = sdk;
+    this.hashsdk = sdk;
   }
 
   /**
