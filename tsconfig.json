@@ -1,5 +1,5 @@
 {
-  "extends": "config-typescript/node.json",
+  "extends": "config-typescript/workers-library.json",
   "include": ["."],
-  "exclude": ["node_modules"]
+  "exclude": ["dist", "node_modules"]
 }
